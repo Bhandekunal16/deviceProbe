@@ -1,0 +1,11 @@
+{
+    "version": 2,
+    "builds": [{ "src": "brain.js", "use": "@vercel/node" }],
+  
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "brain.js"
+      }
+    ]
+  }
