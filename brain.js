@@ -26,7 +26,7 @@ app.get("/", async (req, res) => {
   const obj = await application(ip);
 
   const query = `
-    MERGE (p:Person {ip: $ip, network: $network, version: $version, city: $city, region: $region, region_code: $region_code}) 
+    MERGE (p:Person { deviceName: $deviceName }) 
     ON CREATE SET p += {
       country: $country,
       country_name: $country_name,
@@ -49,7 +49,12 @@ app.get("/", async (req, res) => {
       country_population: $country_population,
       asn: $asn,
       org: $org,
-      deviceName: $deviceName
+      ip: $ip, 
+      network: $network, 
+      version: $version, 
+      city: $city, 
+      region: $region, 
+      region_code: $region_code
     }
     RETURN p`;
 
