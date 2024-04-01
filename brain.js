@@ -49,7 +49,7 @@ app.get("/", async (req, res) => {
       country_population: $country_population,
       asn: $asn,
       org: $org,
-      ip: $ip, 
+      ip: $ip,
       network: $network, 
       version: $version, 
       city: $city, 
