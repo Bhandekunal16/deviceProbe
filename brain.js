@@ -17,11 +17,16 @@ async function application(ip) {
   return await App.infoPrinter(ip);
 }
 
-app.get("/", async (req, res) => {
+app.post("/", async (req, res) => {
   const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
   const userAgentString = req.headers["user-agent"];
   const agent = useragent.parse(userAgentString);
   const deviceName = agent.device.toString();
+
+  data = {
+    deviceLatitude: req.body.Latitude,
+    deviceLongitude: req.body.Longitude,
+  };
 
   const obj = await application(ip);
 
@@ -54,7 +59,9 @@ app.get("/", async (req, res) => {
       version: $version, 
       city: $city, 
       region: $region, 
-      region_code: $region_code
+      region_code: $region_code,
+      deviceLatitude: $deviceLatitude,
+      deviceLongitude: $deviceLongitude
     }
     RETURN p`;
 
@@ -87,6 +94,8 @@ app.get("/", async (req, res) => {
     asn: obj.asn,
     org: obj.org,
     deviceName: deviceName,
+    deviceLatitude : data.deviceLatitude,
+    deviceLongitude : data.deviceLongitude
   };
 
   const session = driver.session();
