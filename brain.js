@@ -1,6 +1,7 @@
 const App = require("./app");
 const express = require("express");
 const app = express();
+
 const cors = require("cors");
 const useragent = require("useragent");
 const neo4j = require("neo4j-driver");
@@ -12,6 +13,7 @@ const driver = neo4j.driver(
 const session = driver.session();
 
 app.use(cors());
+app.use(express.json()); 
 
 async function application(ip) {
   return await App.infoPrinter(ip);
@@ -23,10 +25,9 @@ app.post("/", async (req, res) => {
   const agent = useragent.parse(userAgentString);
   const deviceName = agent.device.toString();
 
-  data = {
-    deviceLatitude: req.body.Latitude,
-    deviceLongitude: req.body.Longitude,
-  };
+  const requestData = req.body;
+  
+  console.log(requestData)
 
   const obj = await application(ip);
 
@@ -94,8 +95,8 @@ app.post("/", async (req, res) => {
     asn: obj.asn,
     org: obj.org,
     deviceName: deviceName,
-    deviceLatitude : data.deviceLatitude,
-    deviceLongitude : data.deviceLongitude
+    deviceLatitude : requestData.deviceLatitude,
+    deviceLongitude : requestData.deviceLongitude
   };
 
   const session = driver.session();
