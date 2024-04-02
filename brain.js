@@ -1,6 +1,7 @@
 const App = require("./app");
 const express = require("express");
 const app = express();
+const bodyParser = require("body-parser");
 
 const cors = require("cors");
 const useragent = require("useragent");
@@ -10,14 +11,35 @@ const driver = neo4j.driver(
   neo4j.auth.basic("neo4j", "kH8WQkwu-vK5bmjUYjJ2oe1kbcBeoZdDeErj9o8woSk")
 );
 
-const session = driver.session();
-
 app.use(cors());
-app.use(express.json()); 
+app.use(express.json());
+app.use(bodyParser.json());
 
 async function application(ip) {
   return await App.infoPrinter(ip);
 }
+
+app.get("/get", async (req, res) => {
+  const query = `MATCH (p:Person) RETURN COLLECT(properties(p)) as Person`;
+  const session = driver.session();
+
+  session
+    .readTransaction((tx) => {
+      return tx.run(query).then((result) => {
+        const data = result.records[0].get("Person");
+        return data;
+      });
+    })
+    .then((data) => {
+      session.close();
+      res.send({ data: data });
+    })
+    .catch((error) => {
+      console.error("Error running Cypher query:", error);
+      session.close();
+      res.status(500).send("Internal server error");
+    });
+});
 
 app.post("/", async (req, res) => {
   const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
@@ -26,8 +48,8 @@ app.post("/", async (req, res) => {
   const deviceName = agent.device.toString();
 
   const requestData = req.body;
-  
-  console.log(requestData)
+
+  console.log(requestData);
 
   const obj = await application(ip);
 
@@ -95,8 +117,8 @@ app.post("/", async (req, res) => {
     asn: obj.asn,
     org: obj.org,
     deviceName: deviceName,
-    deviceLatitude : requestData.deviceLatitude,
-    deviceLongitude : requestData.deviceLongitude
+    deviceLatitude: requestData.deviceLatitude,
+    deviceLongitude: requestData.deviceLongitude,
   };
 
   const session = driver.session();
