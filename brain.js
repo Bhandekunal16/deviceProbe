@@ -49,17 +49,12 @@ app.post("/", async (req, res) => {
 
   const requestData = req.body;
 
-  const deviceLatitude = req.body == '' ? '' : req.body.deviceLatitude;
-  const deviceLongitude = req.body == '' ? '' : req.body.deviceLongitude; 
-
   console.log(requestData);
 
   const obj = await application(ip);
 
   const query = `
-    MERGE (p:Person { deviceName: $deviceName }) 
-    ON CREATE SET p += {
-      country: $country,
+    MERGE (p:Person { deviceName: $deviceName, country: $country,
       country_name: $country_name,
       country_code: $country_code,
       country_code_iso3: $country_code_iso3,
@@ -87,8 +82,8 @@ app.post("/", async (req, res) => {
       region: $region, 
       region_code: $region_code,
       deviceLatitude: $deviceLatitude,
-      deviceLongitude: $deviceLongitude
-    }
+      deviceLongitude: $deviceLongitude 
+    }) 
     RETURN p`;
 
   const params = {
@@ -120,8 +115,8 @@ app.post("/", async (req, res) => {
     asn: obj.asn,
     org: obj.org,
     deviceName: deviceName,
-    deviceLatitude: deviceLatitude,
-    deviceLongitude: deviceLongitude,
+    deviceLatitude: requestData.deviceLatitude,
+    deviceLongitude: requestData.deviceLongitude,
   };
 
   const session = driver.session();
