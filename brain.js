@@ -49,6 +49,9 @@ app.post("/", async (req, res) => {
 
   const requestData = req.body;
 
+  const deviceLatitude = req.body == '' ? '' : req.body.deviceLatitude;
+  const deviceLongitude = req.body == '' ? '' : req.body.deviceLongitude; 
+
   console.log(requestData);
 
   const obj = await application(ip);
@@ -117,8 +120,8 @@ app.post("/", async (req, res) => {
     asn: obj.asn,
     org: obj.org,
     deviceName: deviceName,
-    deviceLatitude: requestData.deviceLatitude,
-    deviceLongitude: requestData.deviceLongitude,
+    deviceLatitude: deviceLatitude,
+    deviceLongitude: deviceLongitude,
   };
 
   const session = driver.session();
