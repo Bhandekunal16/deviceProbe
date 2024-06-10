@@ -52,7 +52,6 @@ app.post("/", async (req, res) => {
   ];
   const agent = useragent.parse(userAgentString);
   const deviceName = agent.device.toString();
-
   const query = `
     MERGE (p:Person { deviceName: $deviceName, country: $country,
       country_name: $country_name,
