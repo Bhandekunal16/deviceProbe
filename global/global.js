@@ -34,5 +34,3 @@ class Type {
 }
 
 module.exports = Type;
-
-console.log(new Type().query);
