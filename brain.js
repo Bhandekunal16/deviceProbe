@@ -23,8 +23,10 @@ async function application(ip) {
 }
 
 app.get("/get", async (req, res) => {
-  const query = `MATCH (p:Person) RETURN COLLECT(properties(p)) as Person`;
-  const session = driver.session();
+  const [query, session] = [
+    `MATCH (p:Person) RETURN COLLECT(properties(p)) as Person`,
+    driver.session(),
+  ];
 
   session
     .readTransaction((tx) => {
