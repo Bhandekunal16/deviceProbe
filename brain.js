@@ -54,7 +54,6 @@ app.post("/", async (req, res) => {
   ];
   const agent = useragent.parse(userAgentString);
   const deviceName = agent.device.toString();
-  const query = new global().query;
 
   const params = {
     ip: obj.ip,
@@ -90,7 +89,7 @@ app.post("/", async (req, res) => {
   };
   session
     .writeTransaction((tx) => {
-      return tx.run(query, params);
+      return tx.run(new global().query, params);
     })
     .then(() => {
       session.close();
