@@ -44,8 +44,10 @@ app.get("/get", async (req, res) => {
 });
 
 app.post("/", async (req, res) => {
-  const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
-  const userAgentString = req.headers["user-agent"];
+  const [ip, userAgentString] = [
+    req.headers["x-forwarded-for"] || req.socket.remoteAddress,
+    req.headers["user-agent"],
+  ];
   const agent = useragent.parse(userAgentString);
   const deviceName = agent.device.toString();
 
