@@ -5,6 +5,7 @@ const [App, express, cors, bodyParser, useragent, neo4j, Logger] = [
   require("body-parser"),
   require("useragent"),
   require("neo4j-driver"),
+  require("robotic.js/src/interface/Logger"),
 ];
 const app = express();
 const driver = neo4j.driver(
@@ -143,5 +144,5 @@ app.post("/", async (req, res) => {
 });
 
 app.listen(3001, () => {
-  console.log("Server is running on port 3001");
+  new Logger().log("Server is running on port http://localhost:3001");
 });
