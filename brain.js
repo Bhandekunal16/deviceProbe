@@ -119,7 +119,6 @@ app.post("/", async (req, res) => {
   };
 
   const session = driver.session();
-
   session
     .writeTransaction((tx) => {
       return tx.run(query, params);
