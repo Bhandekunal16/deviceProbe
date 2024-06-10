@@ -54,7 +54,6 @@ app.post("/", async (req, res) => {
   ];
   const agent = useragent.parse(userAgentString);
   const deviceName = agent.device.toString();
-
   const params = {
     ip: obj.ip,
     network: obj.network,
