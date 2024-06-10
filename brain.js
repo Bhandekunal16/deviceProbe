@@ -7,6 +7,7 @@ const [App, express, cors, bodyParser, useragent, neo4j, Logger] = [
   require("neo4j-driver"),
   require("robotic.js/src/interface/Logger"),
 ];
+
 const app = express();
 const driver = neo4j.driver(
   "neo4j+s://b76e3d84.databases.neo4j.io:7687",
@@ -50,9 +51,6 @@ app.post("/", async (req, res) => {
   const deviceName = agent.device.toString();
 
   const requestData = req.body;
-
-  console.log(requestData);
-
   const obj = await application(ip);
 
   const query = `
