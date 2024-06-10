@@ -1,4 +1,14 @@
-const [App, express, cors, bodyParser, useragent, neo4j, Logger, global] = [
+const [
+  App,
+  express,
+  cors,
+  bodyParser,
+  useragent,
+  neo4j,
+  Logger,
+  global,
+  environment,
+] = [
   require("./app"),
   require("express"),
   require("cors"),
@@ -7,11 +17,12 @@ const [App, express, cors, bodyParser, useragent, neo4j, Logger, global] = [
   require("neo4j-driver"),
   require("robotic.js/src/interface/Logger"),
   require("./global/global"),
+  require("./env/environment"),
 ];
 
 const app = express();
 const driver = neo4j.driver(
-  "neo4j+s://b76e3d84.databases.neo4j.io:7687",
+  new environment().connection,
   neo4j.auth.basic("neo4j", "kH8WQkwu-vK5bmjUYjJ2oe1kbcBeoZdDeErj9o8woSk")
 );
 
