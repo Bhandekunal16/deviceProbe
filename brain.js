@@ -38,9 +38,8 @@ app.get("/get", async (req, res) => {
       res.send({ data: data });
     })
     .catch((error) => {
-      console.error("Error running Cypher query:", error);
       session.close();
-      res.send("Internal server error");
+      res.send(error);
     });
 });
 
