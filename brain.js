@@ -40,7 +40,7 @@ app.get("/get", async (req, res) => {
     .catch((error) => {
       console.error("Error running Cypher query:", error);
       session.close();
-      res.status(500).send("Internal server error");
+      res.send("Internal server error");
     });
 });
 
