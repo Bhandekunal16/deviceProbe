@@ -1,6 +1,4 @@
 const axios = require("axios");
-
-
 class OsService {
   static async infoPrinter(ip) {
     try {
