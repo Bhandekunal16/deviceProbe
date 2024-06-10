@@ -30,8 +30,7 @@ app.get("/get", async (req, res) => {
   session
     .readTransaction((tx) => {
       return tx.run(query).then((result) => {
-        const data = result.records[0].get("Person");
-        return data;
+        return result.records[0].get("Person");
       });
     })
     .then((data) => {
