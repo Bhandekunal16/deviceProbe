@@ -122,12 +122,7 @@ app.post("/", async (req, res) => {
 
   session
     .writeTransaction((tx) => {
-      return tx.run(query, params).then((result) => {
-        result.records.forEach((record) => {
-          console.log(record.get("p").properties);
-        });
-        console.log(result);
-      });
+      return tx.run(query, params);
     })
     .then(() => {
       session.close();
