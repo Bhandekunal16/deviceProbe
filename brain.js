@@ -44,14 +44,14 @@ app.get("/get", async (req, res) => {
 });
 
 app.post("/", async (req, res) => {
-  const [ip, userAgentString, requestData] = [
+  const [ip, userAgentString, requestData, obj] = [
     req.headers["x-forwarded-for"] || req.socket.remoteAddress,
     req.headers["user-agent"],
     req.body,
+    await application(ip),
   ];
   const agent = useragent.parse(userAgentString);
   const deviceName = agent.device.toString();
-  const obj = await application(ip);
 
   const query = `
     MERGE (p:Person { deviceName: $deviceName, country: $country,
