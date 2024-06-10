@@ -1,12 +1,12 @@
-const App = require("./app");
-const express = require("express");
+const [App, express, cors, bodyParser, useragent, neo4j] = [
+  require("./app"),
+  require("express"),
+  require("cors"),
+  require("body-parser"),
+  require("useragent"),
+  require("neo4j-driver"),
+];
 const app = express();
-const cors = require("cors");
-const bodyParser = require("body-parser");
-const useragent = require("useragent");
-const neo4j = require("neo4j-driver");
-
-
 
 const driver = neo4j.driver(
   "neo4j+s://b76e3d84.databases.neo4j.io:7687",
