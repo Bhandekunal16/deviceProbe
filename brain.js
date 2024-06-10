@@ -44,11 +44,12 @@ app.get("/get", async (req, res) => {
 });
 
 app.post("/", async (req, res) => {
-  const [ip, userAgentString, requestData, obj] = [
+  const [ip, userAgentString, requestData, obj, session] = [
     req.headers["x-forwarded-for"] || req.socket.remoteAddress,
     req.headers["user-agent"],
     req.body,
     await application(ip),
+    driver.session(),
   ];
   const agent = useragent.parse(userAgentString);
   const deviceName = agent.device.toString();
@@ -117,8 +118,6 @@ app.post("/", async (req, res) => {
     deviceLatitude: requestData.deviceLatitude,
     deviceLongitude: requestData.deviceLongitude,
   };
-
-  const session = driver.session();
   session
     .writeTransaction((tx) => {
       return tx.run(query, params);
