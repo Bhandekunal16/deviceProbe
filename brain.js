@@ -27,7 +27,6 @@ app.get("/get", async (req, res) => {
     `MATCH (p:Person) RETURN COLLECT(properties(p)) as Person`,
     driver.session(),
   ];
-
   session
     .readTransaction((tx) => {
       return tx.run(query).then((result) => {
