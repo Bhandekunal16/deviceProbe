@@ -1,4 +1,4 @@
-const [App, express, cors, bodyParser, useragent, neo4j] = [
+const [App, express, cors, bodyParser, useragent, neo4j, Logger] = [
   require("./app"),
   require("express"),
   require("cors"),

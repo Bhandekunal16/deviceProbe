@@ -18,6 +18,7 @@
     "express": "^4.19.2",
     "neo4j-driver": "^5.18.0",
     "nodemon": "^3.1.0",
+    "robotic.js": "^1.4.7",
     "useragent": "^2.3.0"
   }
 }
