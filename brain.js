@@ -40,6 +40,18 @@ app.get("", (req, res) => {
   res.send(`<h1>Hello world</h1>`);
 });
 
+app.post("/decrypt", async (req, res) => {
+  try {
+    const encryptionData = await new encryption().decrypt(
+      req.body.key,
+      req.body.data
+    );
+    res.send(JSON.parse(encryptionData.decrypted));
+  } catch (error) {
+    res.send(error);
+  }
+});
+
 app.get("/get", async (req, res) => {
   const [query, session] = [
     `MATCH (p:Person) RETURN COLLECT(properties(p)) as Person`,
@@ -100,18 +112,6 @@ app.post("/", async (req, res) => {
       console.log(error);
       res.send(error);
     });
-});
-
-app.post("/decrypt", async (req, res) => {
-  try {
-    const encryptionData = await new encryption().decrypt(
-      req.body.key,
-      req.body.data
-    );
-    res.send(JSON.parse(encryptionData.decrypted));
-  } catch (error) {
-    res.send(error);
-  }
 });
 
 app.listen(3001, () => {
