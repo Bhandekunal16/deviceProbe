@@ -123,4 +123,5 @@ app.listen(process.env.port, () => {
   new Logger().log(
     `Server is running on port http://localhost:${process.env.port}`
   );
+  new Logger().array(route);
 });
