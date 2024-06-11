@@ -36,8 +36,6 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
 
-
-
 async function application(ip) {
   return await App.infoPrinter(ip);
 }
