@@ -35,15 +35,17 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
 
+const route = ["", "/decrypt"];
+
 async function application(ip) {
   return await App.infoPrinter(ip);
 }
 
-app.get("", (req, res) => {
+app.get(route[0], (req, res) => {
   res.send(`<h1>Hello world</h1>`);
 });
 
-app.post("/decrypt", async (req, res) => {
+app.post(route[1], async (req, res) => {
   try {
     const encryptionData = await new encryption().decrypt(
       req.body.key,
