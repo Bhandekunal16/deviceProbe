@@ -10,7 +10,7 @@ const [
   environment,
   encryption,
   Config,
-  exteroceptor
+  exteroceptor,
 ] = [
   require("./app"),
   require("express"),
@@ -23,7 +23,7 @@ const [
   require("./env/environment"),
   require("robotic-authenticator/src/algorithm"),
   require("robotic-env-reader/index"),
-  require('./interceptor')
+  require("./interceptor"),
 ];
 
 new Config().loadEnv(".env");
@@ -37,7 +37,7 @@ const driver = neo4j.driver(
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
-app.use(exteroceptor)
+app.use(exteroceptor);
 
 async function application(ip) {
   return await App.infoPrinter(ip);
@@ -120,9 +120,7 @@ app.post(route[3], async (req, res) => {
     });
 });
 
-app.listen(process.env.port, () => {
-  new Logger().log(
-    `Server is up and running at http://localhost:${process.env.port}`
-  );
+app.listen(3001, () => {
+  new Logger().log(`Server is up and running at http://localhost:${3001}`);
   new Logger().array(route);
 });
