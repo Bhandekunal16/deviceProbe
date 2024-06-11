@@ -98,10 +98,10 @@ app.post("/", async (req, res) => {
     });
 });
 
-app.post("decrypt", async (req, res) => {
+app.post("/decrypt", async (req, res) => {
   const encryptionData = await new encryption().encrypt(
     "robotic.js",
-    JSON.stringify(req.data)
+    JSON.stringify(req.data.data)
   );
   res.send(encryptionData);
 });
