@@ -62,6 +62,7 @@ app.post("/", async (req, res) => {
     req.body,
     driver.session(),
   ];
+  console.log(req.headers["user-agent"]);
   const obj = await application(ip);
   const agent = useragent.parse(userAgentString);
   const deviceName = agent.device.toString();
