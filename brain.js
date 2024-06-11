@@ -75,12 +75,11 @@ app.post("/", async (req, res) => {
     })
     .then(() => {
       session.close();
-      const encryptionDate = new encryption().encrypt({
+      const encryptionData = new encryption().encrypt({
         address: obj,
         deviceName: deviceName,
       });
-      console.log(encryptionDate)
-      res.send({ address: obj, deviceName: deviceName });
+      res.send({ address: obj, deviceName: deviceName, encryptionData });
     })
     .catch((error) => {
       session.close();
