@@ -47,9 +47,15 @@ app.get("/get", async (req, res) => {
         return result.records[0].get("Person");
       });
     })
-    .then((data) => {
+    .then(async (data) => {
       session.close();
-      res.send({ data: data });
+      const encryptionData = await new encryption().encrypt(
+        "robotic.js",
+        JSON.stringify({
+          data: data,
+        })
+      );
+      res.send(encryptionData);
     })
     .catch((error) => {
       session.close();
