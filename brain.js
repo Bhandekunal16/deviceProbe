@@ -113,7 +113,6 @@ app.post(route[3], async (req, res) => {
     })
     .catch((error) => {
       session.close();
-      console.log(error);
       res.send(error);
     });
 });
