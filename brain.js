@@ -79,6 +79,7 @@ app.post("/", async (req, res) => {
     })
     .catch((error) => {
       session.close();
+      console.log(error);
       res.send(error);
     });
 });

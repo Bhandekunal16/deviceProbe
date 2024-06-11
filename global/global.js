@@ -33,6 +33,7 @@ class Type {
             RETURN p`;
 
    method(obj, requestData, deviceName) {
+    console.log(obj)
     return {
       ip: obj.ip,
       network: obj.network,
