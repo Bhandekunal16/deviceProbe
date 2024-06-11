@@ -32,7 +32,7 @@ class Type {
             }) 
             RETURN p`;
 
-  static method(obj) {
+   method(obj, requestData) {
     return {
       ip: obj.ip,
       network: obj.network,

@@ -65,7 +65,7 @@ app.post("/", async (req, res) => {
   ];
   const agent = useragent.parse(userAgentString);
   const deviceName = agent.device.toString();
-  const params = new global().method(obj);
+  const params = new global().method(obj, requestData);
   session
     .writeTransaction((tx) => {
       return tx.run(new global().query, params);
