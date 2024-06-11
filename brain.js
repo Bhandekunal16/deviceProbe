@@ -26,7 +26,6 @@ const [
   require("./interceptor"),
 ];
 
-new Config().loadEnv(".env");
 const app = express();
 const route = ["", "/decrypt", "/get", "/"];
 const driver = neo4j.driver(
