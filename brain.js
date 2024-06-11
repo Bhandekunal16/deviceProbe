@@ -83,9 +83,7 @@ app.post("/", async (req, res) => {
         })
       );
 
-      res.send({
-        encryptionData: encryptionData,
-      });
+      res.send(encryptionData);
     })
     .catch((error) => {
       session.close();
