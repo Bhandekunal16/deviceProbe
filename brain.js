@@ -82,6 +82,11 @@ app.post("/", async (req, res) => {
           deviceName: deviceName,
         })
       );
+
+      encryptionData.catch((ele) => {
+        console.log(ele);
+      });
+    
       res.send({
         address: obj,
         deviceName: deviceName,
