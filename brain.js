@@ -82,7 +82,7 @@ app.post("/", async (req, res) => {
       res.send({
         address: obj,
         deviceName: deviceName,
-        encryptionData: encryptionData,
+        encryptionData: JSON.stringify(encryptionData),
       });
     })
     .catch((error) => {
