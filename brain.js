@@ -100,10 +100,10 @@ app.post("/", async (req, res) => {
 
 app.post("/decrypt", async (req, res) => {
   const encryptionData = await new encryption().decrypt(
-    "robotic.js",
-    JSON.stringify(req.data.data)
+    req.body.key,
+    req.body.data
   );
-  res.send(encryptionData);
+  res.send(JSON.parse(encryptionData.decrypted));
 });
 
 app.listen(3001, () => {
