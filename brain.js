@@ -62,11 +62,13 @@ app.post("/", async (req, res) => {
     req.body,
     driver.session(),
   ];
-  console.log(req.headers["user-agent"]);
+  console.log(req.headers["user-agent"], "is first");
   const obj = await application(ip);
   const agent = useragent.parse(userAgentString);
-  const deviceName = agent.device.toString();
+  console.log(agent, "i am agent");
+  const deviceName = agent.device ? agent.device.toString() : "not defined";
   const params = new global().method(obj, requestData);
+  console.log(deviceName);
   session
     .writeTransaction((tx) => {
       return tx.run(new global().query, params);
