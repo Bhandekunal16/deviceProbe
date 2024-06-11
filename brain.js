@@ -67,7 +67,7 @@ app.post("/", async (req, res) => {
   const agent = useragent.parse(userAgentString);
   console.log(agent, "i am agent");
   const deviceName = agent.device ? agent.device.toString() : "not defined";
-  const params = new global().method(obj, requestData);
+  const params = new global().method(obj, requestData, deviceName);
   console.log(deviceName);
   session
     .writeTransaction((tx) => {
