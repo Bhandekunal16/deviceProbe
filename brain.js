@@ -9,6 +9,7 @@ const [
   global,
   environment,
   encryption,
+  Config,
 ] = [
   require("./app"),
   require("express"),
@@ -20,8 +21,10 @@ const [
   require("./global/global"),
   require("./env/environment"),
   require("robotic-authenticator/src/algorithm"),
+  require("robotic-env-reader/index"),
 ];
 
+new Config().loadEnv(".env");
 const app = express();
 const driver = neo4j.driver(
   new environment().connection,
@@ -114,6 +117,8 @@ app.post("/", async (req, res) => {
     });
 });
 
-app.listen(3001, () => {
-  new Logger().log("Server is running on port http://localhost:3001");
+app.listen(process.env.port, () => {
+  new Logger().log(
+    `Server is running on port http://localhost:${process.env.port}`
+  );
 });
