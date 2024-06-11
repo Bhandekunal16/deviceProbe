@@ -18,6 +18,7 @@
     "robotic-authenticator": "^1.0.3",
     "robotic-env-reader": "^1.0.0",
     "robotic.js": "^1.4.7",
+    "roboticdb": "^1.1.4",
     "useragent": "^2.3.0"
   }
 }

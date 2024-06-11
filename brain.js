@@ -10,6 +10,7 @@ const [
   environment,
   encryption,
   Config,
+  exteroceptor
 ] = [
   require("./app"),
   require("express"),
@@ -22,6 +23,7 @@ const [
   require("./env/environment"),
   require("robotic-authenticator/src/algorithm"),
   require("robotic-env-reader/index"),
+  require('./interceptor')
 ];
 
 new Config().loadEnv(".env");
@@ -35,6 +37,7 @@ const driver = neo4j.driver(
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
+app.use(exteroceptor)
 
 async function application(ip) {
   return await App.infoPrinter(ip);
