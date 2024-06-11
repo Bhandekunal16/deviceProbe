@@ -60,7 +60,6 @@ app.post("/", async (req, res) => {
     req.headers["x-forwarded-for"] || req.socket.remoteAddress,
     req.headers["user-agent"],
     req.body,
-    ,
     driver.session(),
   ];
   const obj = await application(ip);
