@@ -28,7 +28,7 @@ new Config().loadEnv(".env");
 const app = express();
 const driver = neo4j.driver(
   new environment().connection,
-  neo4j.auth.basic(new environment().name, new environment().password)
+  neo4j.auth.basic(new environment().name, process.env.password)
 );
 
 app.use(cors());
