@@ -35,7 +35,7 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
 
-const route = ["", "/decrypt"];
+const route = ["", "/decrypt", "/get", "/"];
 
 async function application(ip) {
   return await App.infoPrinter(ip);
@@ -57,7 +57,7 @@ app.post(route[1], async (req, res) => {
   }
 });
 
-app.get("/get", async (req, res) => {
+app.get(route[2], async (req, res) => {
   const [query, session] = [
     `MATCH (p:Person) RETURN COLLECT(properties(p)) as Person`,
     driver.session(),
@@ -84,7 +84,7 @@ app.get("/get", async (req, res) => {
     });
 });
 
-app.post("/", async (req, res) => {
+app.post(route[3], async (req, res) => {
   const [ip, userAgentString, requestData, session] = [
     req.headers["x-forwarded-for"] || req.socket.remoteAddress,
     req.headers["user-agent"],
