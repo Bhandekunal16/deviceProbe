@@ -26,6 +26,7 @@ const [
 
 new Config().loadEnv(".env");
 const app = express();
+const route = ["", "/decrypt", "/get", "/"];
 const driver = neo4j.driver(
   new environment().connection,
   neo4j.auth.basic(new environment().name, process.env.password)
@@ -35,7 +36,7 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
 
-const route = ["", "/decrypt", "/get", "/"];
+
 
 async function application(ip) {
   return await App.infoPrinter(ip);
