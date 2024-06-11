@@ -56,13 +56,14 @@ app.get("/get", async (req, res) => {
 });
 
 app.post("/", async (req, res) => {
-  const [ip, userAgentString, requestData, obj, session] = [
+  const [ip, userAgentString, requestData, session] = [
     req.headers["x-forwarded-for"] || req.socket.remoteAddress,
     req.headers["user-agent"],
     req.body,
-    await application(ip),
+    ,
     driver.session(),
   ];
+  const obj = await application(ip);
   const agent = useragent.parse(userAgentString);
   const deviceName = agent.device.toString();
   const params = new global().method(obj, requestData);
