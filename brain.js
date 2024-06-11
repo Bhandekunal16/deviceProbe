@@ -98,6 +98,14 @@ app.post("/", async (req, res) => {
     });
 });
 
+app.post("decrypt", async (req, res) => {
+  const encryptionData = await new encryption().encrypt(
+    "robotic.js",
+    JSON.stringify(req.data)
+  );
+  res.send(encryptionData);
+});
+
 app.listen(3001, () => {
   new Logger().log("Server is running on port http://localhost:3001");
 });
