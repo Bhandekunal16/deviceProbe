@@ -79,7 +79,11 @@ app.post("/", async (req, res) => {
         address: obj,
         deviceName: deviceName,
       });
-      res.send({ address: obj, deviceName: deviceName, encryptionData });
+      res.send({
+        address: obj,
+        deviceName: deviceName,
+        encryptionData: encryptionData,
+      });
     })
     .catch((error) => {
       session.close();
