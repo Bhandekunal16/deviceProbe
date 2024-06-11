@@ -36,6 +36,10 @@ async function application(ip) {
   return await App.infoPrinter(ip);
 }
 
+app.get("", (req, res) => {
+  res.send(`<h1>Hello world</h1>`);
+});
+
 app.get("/get", async (req, res) => {
   const [query, session] = [
     `MATCH (p:Person) RETURN COLLECT(properties(p)) as Person`,
