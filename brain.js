@@ -73,9 +73,9 @@ app.post("/", async (req, res) => {
     .writeTransaction((tx) => {
       return tx.run(new global().query, params);
     })
-    .then(() => {
+    .then(async () => {
       session.close();
-      const encryptionData = new encryption().encrypt(
+      const encryptionData = await new encryption().encrypt(
         "robotic.js",
         JSON.stringify({
           address: obj,
@@ -83,10 +83,6 @@ app.post("/", async (req, res) => {
         })
       );
 
-      encryptionData.catch((ele) => {
-        console.log(ele);
-      });
-    
       res.send({
         address: obj,
         deviceName: deviceName,
