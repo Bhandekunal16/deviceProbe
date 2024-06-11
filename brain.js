@@ -75,14 +75,17 @@ app.post("/", async (req, res) => {
     })
     .then(() => {
       session.close();
-      const encryptionData = new encryption().encrypt('robotic.js',{
-        address: obj,
-        deviceName: deviceName,
-      });
+      const encryptionData = new encryption().encrypt(
+        "robotic.js",
+        JSON.stringify({
+          address: obj,
+          deviceName: deviceName,
+        })
+      );
       res.send({
         address: obj,
         deviceName: deviceName,
-        encryptionData: JSON.stringify(encryptionData),
+        encryptionData: encryptionData,
       });
     })
     .catch((error) => {
