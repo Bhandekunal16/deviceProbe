@@ -8,6 +8,5 @@ module.exports = function isLogger(req, res, next) {
     hitOn: `${new Date().getDay()}/${new Date().getMonth()}/${new Date().getFullYear()}`,
   };
   const query = Object.entries(array).map(([key, value]) => `${key}: ${value}`);
-
   next(new Logger().array(query));
 };
