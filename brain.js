@@ -64,8 +64,10 @@ app.post("/", async (req, res) => {
   ];
   const obj = await application(ip);
   const agent = useragent.parse(userAgentString);
+  console.log(agent.os);
+  const os = agent.os ? agent.os.toString() : "not defined";
   const deviceName = agent.device ? agent.device.toString() : "not defined";
-  const params = new global().method(obj, requestData, deviceName);
+  const params = new global().method(obj, requestData, deviceName, os);
   session
     .writeTransaction((tx) => {
       return tx.run(new global().query, params);

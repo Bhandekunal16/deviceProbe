@@ -28,12 +28,13 @@ class Type {
             region: $region, 
             region_code: $region_code,
             deviceLatitude: $deviceLatitude,
-            deviceLongitude: $deviceLongitude 
+            deviceLongitude: $deviceLongitude,
+            os : $os
             }) 
             RETURN p`;
 
-   method(obj, requestData, deviceName) {
-    console.log(obj)
+  method(obj, requestData, deviceName, os) {
+    console.log(obj);
     return {
       ip: obj.ip,
       network: obj.network,
@@ -65,6 +66,7 @@ class Type {
       deviceName: deviceName,
       deviceLatitude: requestData.deviceLatitude,
       deviceLongitude: requestData.deviceLongitude,
+      os: os,
     };
   }
 }
