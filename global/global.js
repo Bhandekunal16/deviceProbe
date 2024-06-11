@@ -34,7 +34,6 @@ class Type {
             RETURN p`;
 
   method(obj, requestData, deviceName, os) {
-    console.log(obj);
     return {
       ip: obj.ip,
       network: obj.network,
