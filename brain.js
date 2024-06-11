@@ -31,7 +31,7 @@ const app = express();
 const route = ["", "/decrypt", "/get", "/"];
 const driver = neo4j.driver(
   new environment().connection,
-  neo4j.auth.basic(new environment().name, process.env.password)
+  neo4j.auth.basic(new environment().name, new environment().password)
 );
 
 app.use(cors());
