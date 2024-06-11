@@ -99,11 +99,15 @@ app.post("/", async (req, res) => {
 });
 
 app.post("/decrypt", async (req, res) => {
-  const encryptionData = await new encryption().decrypt(
-    req.body.key,
-    req.body.data
-  );
-  res.send(JSON.parse(encryptionData.decrypted));
+  try {
+    const encryptionData = await new encryption().decrypt(
+      req.body.key,
+      req.body.data
+    );
+    res.send(JSON.parse(encryptionData.decrypted));
+  } catch (error) {
+    res.send(error);
+  }
 });
 
 app.listen(3001, () => {
