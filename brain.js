@@ -8,6 +8,7 @@ const [
   Logger,
   global,
   environment,
+  encryption,
 ] = [
   require("./app"),
   require("express"),
@@ -18,6 +19,7 @@ const [
   require("robotic.js/src/interface/Logger"),
   require("./global/global"),
   require("./env/environment"),
+  require("robotic-authenticator/src/algorithm"),
 ];
 
 const app = express();
@@ -64,7 +66,6 @@ app.post("/", async (req, res) => {
   ];
   const obj = await application(ip);
   const agent = useragent.parse(userAgentString);
-  console.log(agent.os);
   const os = agent.os ? agent.os.toString() : "not defined";
   const deviceName = agent.device ? agent.device.toString() : "not defined";
   const params = new global().method(obj, requestData, deviceName, os);
@@ -74,6 +75,11 @@ app.post("/", async (req, res) => {
     })
     .then(() => {
       session.close();
+      const encryptionDate = new encryption().encrypt({
+        address: obj,
+        deviceName: deviceName,
+      });
+      console.log(encryptionDate)
       res.send({ address: obj, deviceName: deviceName });
     })
     .catch((error) => {
