@@ -131,7 +131,9 @@ app.post(route[4], async (req, res) => {
   session
     .writeTransaction((tx) => {
       return tx.run(
-        `MERGE (m: profile {status : $status }) return collect(properties(m)) as User`,
+        `MATCH (m: profile {type : "admin" })
+        set m.status = $status
+        return collect(properties(m)) as User`,
         { status: req.body.status }
       );
     })
