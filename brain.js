@@ -27,7 +27,7 @@ const [
 ];
 
 const app = express();
-const route = ["", "/decrypt", "/get", "/", "/edit/portfolio"];
+const route = ["", "/decrypt", "/get", "/", "/edit/portfolio", '/get/portfolio/status'];
 const driver = neo4j.driver(
   new environment().connection,
   neo4j.auth.basic(new environment().name, new environment().password)
