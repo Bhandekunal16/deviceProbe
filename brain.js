@@ -27,7 +27,7 @@ const [
 ];
 
 const app = express();
-const route = ["", "/decrypt", "/get", "/", "edit/portfolio"];
+const route = ["", "/decrypt", "/get", "/", "/edit/portfolio"];
 const driver = neo4j.driver(
   new environment().connection,
   neo4j.auth.basic(new environment().name, new environment().password)
@@ -123,11 +123,19 @@ app.post(route[4], async (req, res) => {
   const session = driver.session();
   session
     .writeTransaction((tx) => {
-      return tx.run(new global().update, req.body.status);
+      return tx
+        .run(
+          `create (p: profile {status : $status }) return collect(properties(p)) as User`,
+          { status: req.body.status }
+        )
+        .then((result) => {
+          console.log(result.records[0].get("User"));
+          return result.records[0].get("User");
+        });
     })
     .then(async () => {
       session.close();
-      res.send('status updated successfully');
+      res.send("status updated successfully");
     })
     .catch((error) => {
       session.close();
