@@ -133,7 +133,7 @@ app.post(route[4], async (req, res) => {
       return tx.run(
         `MATCH (p: profile) 
         DELETE p
-        MERGE (p: profile {status : $status }) return collect(properties(p)) as User`,
+        MERGE (m: profile {status : $status }) return collect(properties(m)) as User`,
         { status: req.body.status }
       );
     })
