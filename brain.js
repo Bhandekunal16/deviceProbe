@@ -123,15 +123,10 @@ app.post(route[4], async (req, res) => {
   const session = driver.session();
   session
     .writeTransaction((tx) => {
-      return tx
-        .run(
-          `create (p: profile {status : $status }) return collect(properties(p)) as User`,
-          { status: req.body.status }
-        )
-        .then((result) => {
-          console.log(result.records[0].get("User"));
-          return result.records[0].get("User");
-        });
+      return tx.run(
+        `create (p: profile {status : $status }) return collect(properties(p)) as User`,
+        { status: req.body.status }
+      );
     })
     .then(async () => {
       session.close();
