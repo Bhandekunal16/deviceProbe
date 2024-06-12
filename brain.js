@@ -132,7 +132,7 @@ app.post(route[4], async (req, res) => {
     .writeTransaction((tx) => {
       return tx.run(
         `MATCH (p: profile) 
-        DELETE P
+        DELETE p
         MERGE (p: profile {status : $status }) return collect(properties(p)) as User`,
         { status: req.body.status }
       );
@@ -143,6 +143,7 @@ app.post(route[4], async (req, res) => {
     })
     .catch((error) => {
       session.close();
+      console.log(error);
       res.send(error);
     });
 });
