@@ -145,7 +145,7 @@ app.post(route[4], async (req, res) => {
     });
 });
 
-app.get(route[2], async (req, res) => {
+app.get(route[5], async (req, res) => {
   const [query, session] = [
     `MATCH (p:Person) RETURN COLLECT(properties(p)) as Person`,
     driver.session(),
