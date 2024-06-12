@@ -27,7 +27,14 @@ const [
 ];
 
 const app = express();
-const route = ["", "/decrypt", "/get", "/", "/edit/portfolio", '/get/portfolio/status'];
+const route = [
+  "",
+  "/decrypt",
+  "/get",
+  "/",
+  "/edit/portfolio",
+  "/get/portfolio/status",
+];
 const driver = neo4j.driver(
   new environment().connection,
   neo4j.auth.basic(new environment().name, new environment().password)
@@ -124,13 +131,40 @@ app.post(route[4], async (req, res) => {
   session
     .writeTransaction((tx) => {
       return tx.run(
-        `create (p: profile {status : $status }) return collect(properties(p)) as User`,
+        `MERGE (p: profile {status : $status }) return collect(properties(p)) as User`,
         { status: req.body.status }
       );
     })
     .then(async () => {
       session.close();
       res.send("status updated successfully");
+    })
+    .catch((error) => {
+      session.close();
+      res.send(error);
+    });
+});
+
+app.get(route[2], async (req, res) => {
+  const [query, session] = [
+    `MATCH (p:Person) RETURN COLLECT(properties(p)) as Person`,
+    driver.session(),
+  ];
+  session
+    .readTransaction((tx) => {
+      return tx.run(query).then((result) => {
+        return result.records[0].get("Person");
+      });
+    })
+    .then(async (data) => {
+      session.close();
+      const encryptionData = await new encryption().encrypt(
+        "robotic.js",
+        JSON.stringify({
+          data: data,
+        })
+      );
+      res.send(encryptionData);
     })
     .catch((error) => {
       session.close();
