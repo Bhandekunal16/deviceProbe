@@ -27,7 +27,7 @@ const [
 ];
 
 const app = express();
-const route = ["", "/decrypt", "/get", "/"];
+const route = ["", "/decrypt", "/get", "/", "edit/portfolio"];
 const driver = neo4j.driver(
   new environment().connection,
   neo4j.auth.basic(new environment().name, new environment().password)
@@ -112,6 +112,22 @@ app.post(route[3], async (req, res) => {
       );
 
       res.send(encryptionData);
+    })
+    .catch((error) => {
+      session.close();
+      res.send(error);
+    });
+});
+
+app.post(route[4], async (req, res) => {
+  const session = driver.session();
+  session
+    .writeTransaction((tx) => {
+      return tx.run(new global().update, req.body.status);
+    })
+    .then(async () => {
+      session.close();
+      res.send('status updated successfully');
     })
     .catch((error) => {
       session.close();

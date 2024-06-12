@@ -68,6 +68,8 @@ class Type {
       os: os,
     };
   }
+
+  update = `MERGE (p: profile {status : $status }) return collect(properties(p)) as User`
 }
 
 module.exports = Type;
