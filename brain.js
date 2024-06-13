@@ -10,7 +10,7 @@ const [
   environment,
   encryption,
   exteroceptor,
-  Route
+  Route,
 ] = [
   require("./app"),
   require("express"),
@@ -23,11 +23,10 @@ const [
   require("./env/environment"),
   require("robotic-authenticator/src/algorithm"),
   require("./interceptor"),
-  require('./global/route')
+  require("./global/route"),
 ];
 
 const app = express();
-const route = new Route().route
 const driver = neo4j.driver(
   new environment().connection,
   neo4j.auth.basic(new environment().name, new environment().password)
@@ -42,11 +41,11 @@ async function application(ip) {
   return await App.infoPrinter(ip);
 }
 
-app.get(route[0], (req, res) => {
+app.get(new Route().route[0], (req, res) => {
   res.send(`<h1>Hello world</h1>`);
 });
 
-app.post(route[1], async (req, res) => {
+app.post(new Route().route[1], async (req, res) => {
   try {
     const encryptionData = await new encryption().decrypt(
       req.body.key,
@@ -58,7 +57,7 @@ app.post(route[1], async (req, res) => {
   }
 });
 
-app.get(route[2], async (req, res) => {
+app.get(new Route().route[2], async (req, res) => {
   const [query, session] = [
     `MATCH (p:Person) RETURN COLLECT(properties(p)) as Person`,
     driver.session(),
@@ -85,7 +84,7 @@ app.get(route[2], async (req, res) => {
     });
 });
 
-app.post(route[3], async (req, res) => {
+app.post(new Route().route[3], async (req, res) => {
   const [ip, userAgentString, requestData, session] = [
     req.headers["x-forwarded-for"] || req.socket.remoteAddress,
     req.headers["user-agent"],
@@ -119,7 +118,7 @@ app.post(route[3], async (req, res) => {
     });
 });
 
-app.post(route[4], async (req, res) => {
+app.post(new Route().route[4], async (req, res) => {
   const session = driver.session();
   session
     .writeTransaction((tx) => {
@@ -141,7 +140,7 @@ app.post(route[4], async (req, res) => {
     });
 });
 
-app.get(route[5], async (req, res) => {
+app.get(new Route().route[5], async (req, res) => {
   const [query, session] = [
     `MATCH (p: profile) RETURN COLLECT(properties(p)) as Person`,
     driver.session(),
@@ -170,5 +169,5 @@ app.get(route[5], async (req, res) => {
 
 app.listen(3001, () => {
   new Logger().log(`Server is up and running at http://localhost:${3001}`);
-  new Logger().array(route);
+  new Logger().array(new Route().route);
 });
