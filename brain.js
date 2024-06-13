@@ -157,8 +157,6 @@ app.get(new Route().route[5], async (req, res) => {
 });
 
 app.listen(new environment().port, () => {
-  new Logger().log(
-    `Server is up and running at http://localhost:${new environment().port}`
-  );
+  new Logger().log(new global().serverGrating(new environment().port));
   new Logger().array(new Route().route);
 });

@@ -72,6 +72,9 @@ class NEO4JQUERY {
   matchPerson = `MATCH (p:Person) RETURN COLLECT(properties(p)) as Person`;
   editProfile = `MATCH (m: profile {type : "admin" }) set m.status = $status return collect(properties(m)) as User`;
   serverChecker = `<h1>Hello world</h1>`;
+  serverGrating(port) {
+    return `Server is up and running at http://localhost:${port}`;
+  }
 }
 
 module.exports = NEO4JQUERY;
