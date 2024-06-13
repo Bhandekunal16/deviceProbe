@@ -1,5 +1,4 @@
 class Type {
-  /** @type {string}*/
   query = ` MERGE (p:Person { deviceName: $deviceName, country: $country,
             country_name: $country_name,
             country_code: $country_code,
