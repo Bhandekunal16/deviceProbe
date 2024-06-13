@@ -11,6 +11,7 @@ const [
   encryption,
   exteroceptor,
   Route,
+  response,
 ] = [
   require("./app"),
   require("express"),
@@ -24,6 +25,7 @@ const [
   require("robotic-authenticator/src/algorithm"),
   require("./interceptor"),
   require("./global/route"),
+  require("./global/response"),
 ];
 
 const app = express();
@@ -90,8 +92,10 @@ app.post(new Route().route[3], async (req, res) => {
   ];
   const obj = await application(ip);
   const agent = useragent.parse(userAgentString);
-  const os = agent.os ? agent.os.toString() : "not defined";
-  const deviceName = agent.device ? agent.device.toString() : "not defined";
+  const os = agent.os ? agent.os.toString() : new response().notDefined;
+  const deviceName = agent.device
+    ? agent.device.toString()
+    : new response().notDefined;
   const params = new global().method(obj, requestData, deviceName, os);
   session
     .writeTransaction((tx) => {
