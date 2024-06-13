@@ -127,7 +127,7 @@ app.post(new Route().route[4], async (req, res) => {
     })
     .then(async () => {
       session.close();
-      res.send({ status: true, msg: "status updated successfully" });
+      res.send({ status: true, msg: new response().statusUpdated });
     })
     .catch((error) => {
       session.close();
