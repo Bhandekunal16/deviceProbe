@@ -1,4 +1,4 @@
-class Type {
+class NEO4JQUERY {
   query = ` MERGE (p:Person { deviceName: $deviceName, country: $country,
             country_name: $country_name,
             country_code: $country_code,
@@ -71,4 +71,4 @@ class Type {
   update = `MERGE (p: profile {status : $status }) return collect(properties(p)) as User`
 }
 
-module.exports = Type;
+module.exports = NEO4JQUERY;
