@@ -70,6 +70,7 @@ class NEO4JQUERY {
 
   matchProfile = `MATCH (p: profile) RETURN COLLECT(properties(p)) as Person`;
   matchPerson = `MATCH (p:Person) RETURN COLLECT(properties(p)) as Person`;
+  editProfile = `MATCH (m: profile {type : "admin" }) set m.status = $status return collect(properties(m)) as User`;
 }
 
 module.exports = NEO4JQUERY;

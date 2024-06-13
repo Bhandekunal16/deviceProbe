@@ -119,12 +119,7 @@ app.post(new Route().route[4], async (req, res) => {
   const session = driver.session();
   session
     .writeTransaction((tx) => {
-      return tx.run(
-        `MATCH (m: profile {type : "admin" })
-        set m.status = $status
-        return collect(properties(m)) as User`,
-        { status: req.body.status }
-      );
+      return tx.run(new global().editProfile, { status: req.body.status });
     })
     .then(async () => {
       session.close();
