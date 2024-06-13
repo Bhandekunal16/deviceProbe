@@ -9,8 +9,8 @@ const [
   global,
   environment,
   encryption,
-  Config,
   exteroceptor,
+  Route
 ] = [
   require("./app"),
   require("express"),
@@ -22,19 +22,12 @@ const [
   require("./global/global"),
   require("./env/environment"),
   require("robotic-authenticator/src/algorithm"),
-  require("robotic-env-reader/index"),
   require("./interceptor"),
+  require('./global/route')
 ];
 
 const app = express();
-const route = [
-  "",
-  "/decrypt",
-  "/get",
-  "/",
-  "/edit/portfolio",
-  "/get/portfolio/status",
-];
+const route = new Route().route
 const driver = neo4j.driver(
   new environment().connection,
   neo4j.auth.basic(new environment().name, new environment().password)
