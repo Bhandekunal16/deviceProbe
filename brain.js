@@ -58,10 +58,7 @@ app.post(new Route().route[1], async (req, res) => {
 });
 
 app.get(new Route().route[2], async (req, res) => {
-  const [query, session] = [
-    `MATCH (p:Person) RETURN COLLECT(properties(p)) as Person`,
-    driver.session(),
-  ];
+  const [query, session] = [new global().matchPerson, driver.session()];
   session
     .readTransaction((tx) => {
       return tx.run(query).then((result) => {
@@ -141,10 +138,7 @@ app.post(new Route().route[4], async (req, res) => {
 });
 
 app.get(new Route().route[5], async (req, res) => {
-  const [query, session] = [
-    new global().matchProfile,
-    driver.session(),
-  ];
+  const [query, session] = [new global().matchProfile, driver.session()];
   session
     .readTransaction((tx) => {
       return tx.run(query).then((result) => {
@@ -168,6 +162,8 @@ app.get(new Route().route[5], async (req, res) => {
 });
 
 app.listen(new environment().port, () => {
-  new Logger().log(`Server is up and running at http://localhost:${new environment().port}`);
+  new Logger().log(
+    `Server is up and running at http://localhost:${new environment().port}`
+  );
   new Logger().array(new Route().route);
 });
