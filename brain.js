@@ -167,7 +167,7 @@ app.get(new Route().route[5], async (req, res) => {
     });
 });
 
-app.listen(3001, () => {
-  new Logger().log(`Server is up and running at http://localhost:${3001}`);
+app.listen(new environment().port, () => {
+  new Logger().log(`Server is up and running at http://localhost:${new environment().port}`);
   new Logger().array(new Route().route);
 });
