@@ -68,7 +68,7 @@ class NEO4JQUERY {
     };
   }
 
-  update = `MERGE (p: profile {status : $status }) return collect(properties(p)) as User`
+  matchProfile = `MATCH (p: profile) RETURN COLLECT(properties(p)) as Person`;
 }
 
 module.exports = NEO4JQUERY;

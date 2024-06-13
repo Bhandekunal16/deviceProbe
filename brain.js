@@ -142,7 +142,7 @@ app.post(new Route().route[4], async (req, res) => {
 
 app.get(new Route().route[5], async (req, res) => {
   const [query, session] = [
-    `MATCH (p: profile) RETURN COLLECT(properties(p)) as Person`,
+    new global().matchProfile,
     driver.session(),
   ];
   session
