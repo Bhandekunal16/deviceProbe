@@ -70,7 +70,7 @@ app.get(new Route().route[2], async (req, res) => {
     .then(async (data) => {
       session.close();
       const encryptionData = await new encryption().encrypt(
-        "robotic.js",
+        new environment().publicKey,
         JSON.stringify({
           data: data,
         })
@@ -104,7 +104,7 @@ app.post(new Route().route[3], async (req, res) => {
     .then(async () => {
       session.close();
       const encryptionData = await new encryption().encrypt(
-        "robotic.js",
+        new environment().publicKey,
         JSON.stringify({
           address: obj,
           deviceName: deviceName,
@@ -147,7 +147,7 @@ app.get(new Route().route[5], async (req, res) => {
     .then(async (data) => {
       session.close();
       const encryptionData = await new encryption().encrypt(
-        "robotic.js",
+        new environment().publicKey,
         JSON.stringify({
           data: data,
         })
