@@ -42,7 +42,7 @@ async function application(ip) {
 }
 
 app.get(new Route().route[0], (req, res) => {
-  res.send(`<h1>Hello world</h1>`);
+  res.send(new global().serverChecker);
 });
 
 app.post(new Route().route[1], async (req, res) => {
