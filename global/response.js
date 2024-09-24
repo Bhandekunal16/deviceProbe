@@ -1,6 +1,11 @@
 class response {
-  notDefined = "not defined";
-  statusUpdated = "status updated successfully";
+  notDefined;
+  statusUpdated;
+
+  constructor() {
+    this.notDefined = "not defined";
+    this.statusUpdated = "status updated successfully";
+  }
 }
 
 module.exports = response;

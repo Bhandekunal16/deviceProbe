@@ -1,5 +1,12 @@
 class NEO4JQUERY {
-  query = ` MERGE (p:Person { deviceName: $deviceName, country: $country,
+  query;
+  matchProfile;
+  matchPerson;
+  editProfile;
+  serverChecker;
+
+  constructor() {
+    this.query = ` MERGE (p:Person { deviceName: $deviceName, country: $country,
             country_name: $country_name,
             country_code: $country_code,
             country_code_iso3: $country_code_iso3,
@@ -31,6 +38,12 @@ class NEO4JQUERY {
             os : $os
             }) 
             RETURN p`;
+
+    this.matchProfile = `MATCH (p: profile) RETURN COLLECT(properties(p)) as Person`;
+    this.matchPerson = `MATCH (p:Person) RETURN COLLECT(properties(p)) as Person`;
+    this.editProfile = `MATCH (m: profile {type : "admin" }) set m.status = $status return collect(properties(m)) as User`;
+    this.serverChecker = `<h1>Hello world</h1>`;
+  }
 
   method(obj, requestData, deviceName, os) {
     return {
@@ -68,10 +81,6 @@ class NEO4JQUERY {
     };
   }
 
-  matchProfile = `MATCH (p: profile) RETURN COLLECT(properties(p)) as Person`;
-  matchPerson = `MATCH (p:Person) RETURN COLLECT(properties(p)) as Person`;
-  editProfile = `MATCH (m: profile {type : "admin" }) set m.status = $status return collect(properties(m)) as User`;
-  serverChecker = `<h1>Hello world</h1>`;
   serverGrating(port) {
     return `Server is up and running at http://localhost:${port}`;
   }
