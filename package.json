@@ -11,11 +11,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.20.2",
+    "body-parser": "^1.20.3",
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "neo4j-driver": "^5.18.0",
-    "robotic-authenticator": "^1.0.3",
+    "robotic-authenticator": "^1.0.4",
     "robotic-env-reader": "^1.0.0",
     "robotic.js": "^1.4.7",
     "useragent": "^2.3.0"
